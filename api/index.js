@@ -17,6 +17,9 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+//REMEMBER TO CREATE A LOCAL DATABASE IN YOUR POSTGRESS HOME MACHINE MAN!
+
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 
