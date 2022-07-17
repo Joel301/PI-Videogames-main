@@ -33,6 +33,7 @@ const getVideogameDataList = async () => {
 };
 
 router.get("/", (req, res) => {
+    console.log(req.params, req.query);
     getVideogameDataList().then((data) => res.json(data));
 });
 
