@@ -5,13 +5,17 @@ const { DataTypes } = require("sequelize");
 // La relación entre amba
 
 const Genre = (sequelize) => {
-    sequelize.define("genre", {
-        ID: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
+    sequelize.define(
+        "genre",
+        {
+            ID: {
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+            },
+            Nombre: { type: DataTypes.STRING, allowNull: false },
         },
-        Nombre: { type: DataTypes.STRING, allowNull: false },
-    });
+        { timestamps: false }
+    );
 };
 
 module.exports = Genre;

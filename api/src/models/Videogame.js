@@ -18,27 +18,31 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
     // defino el modelo
-    sequelize.define("videogame", {
-        ID: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
+    sequelize.define(
+        "videogame",
+        {
+            ID: {
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            description: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            releaseDate: {
+                type: DataTypes.DATE,
+            },
+            rating: {
+                type: DataTypes.STRING,
+            },
+            platforms: {
+                type: DataTypes.STRING,
+            },
         },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        description: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        releaseDate: {
-            type: DataTypes.DATE,
-        },
-        rating: {
-            type: DataTypes.STRING,
-        },
-        platforms: {
-            type: DataTypes.STRING,
-        },
-    });
+        { timestamps: false }
+    );
 };

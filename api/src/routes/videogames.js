@@ -8,7 +8,6 @@ const APIURL = "https://api.rawg.io/api/games";
 const router = Router();
 
 const getVideogameDataList = async (args) => {
-    console.log(args);
     const { name, id } = args;
     let params = {
         key: APIKEY,
@@ -16,13 +15,12 @@ const getVideogameDataList = async (args) => {
     };
     let { data } = await axios.get(`${APIURL}`, { params });
     const limit = !!name ? 15 : 100;
-    // console.log(data);
     const res = [];
     while (res.length < limit) {
         while (res.length < limit && data.results.length > 0) {
             const { id, name, background_image } = data.results.shift();
             if (!id) break;
-            res.push({ id, name, background_image });
+            res.push({ ID: id, name, background_image });
         }
         let response = await axios.get(data.next);
         data = response.data;
@@ -37,22 +35,27 @@ const getVideogameById = async (id_) => {
     };
     try {
         const { data } = await axios.get(`${APIURL}/${id_}`, { params });
-        // let data = response.data;
-        // console.log("here");
         const { id, name, background_image, description, released, rating } =
             data;
         const plataform = data.platforms.map(
             (plataform) => plataform.platform.name
         );
+        const genres = data.genres.map((genre) => {
+            return {
+                ID: genre.id,
+                Nombre: genre.name,
+            };
+        });
 
         const res = {
-            id,
+            ID: id,
             name,
             background_image,
             description,
             released,
             rating,
             plataform,
+            genres,
         };
 
         return res;
@@ -67,9 +70,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-    console.log(req.params, req.query);
     const { name } = req.query;
-
     if (name) {
         getVideogameDataList({ name, id: "" }).then((data) => res.json(data));
         return;
