@@ -12,6 +12,13 @@
             "cwd": "${workspaceFolder}\\api"
         },
         {
+            "command": "npm start",
+            "name": "Front Start",
+            "request": "launch",
+            "type": "node-terminal",
+            "cwd": "${workspaceFolder}\\client"
+        },
+        {
             "type": "pwa-node",
             "request": "launch",
             "name": "Launch Program",
