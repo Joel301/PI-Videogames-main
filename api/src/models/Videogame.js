@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
         "videogame",
         {
             ID: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.UUID,
                 primaryKey: true,
             },
             name: {

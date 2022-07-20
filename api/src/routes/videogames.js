@@ -78,4 +78,24 @@ router.get("/", (req, res) => {
     getVideogameDataList({}).then((data) => res.json(data));
 });
 
+router.post("/", (req, res) => {
+    /*
+    {
+    "name": "el juegito",
+    "description": "la description",
+    "plataformas": [
+        "plataforma1",
+        "plataforma2"
+    ],
+    "generos": [
+        "genero",
+        "genero2"
+    ]
+}
+    */
+    const elbody = req.body;
+    console.log(elbody);
+    res.json(elbody);
+});
+
 module.exports = router;
