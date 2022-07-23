@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateVideoGameList } from "../redux/actions";
+import SearchBar from "./SearchBar";
 import VideoGameCard from "./VideoGameCard";
 
 function CardContainer(props) {
@@ -13,6 +14,7 @@ function CardContainer(props) {
 
     return (
         <div>
+            <SearchBar />
             {VideoGameList.map((game) => (
                 <VideoGameCard props={game} />
             ))}
