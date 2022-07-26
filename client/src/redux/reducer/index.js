@@ -1,12 +1,14 @@
 export const UPDATEVIDEOGAMELIST = "UPDATEVIDEOGAMELIST";
 export const GETGAMEDETAIL = "GETGAMEDETAIL";
-export const FILTERLIST = " FILTERLIST";
-export const UPDATESEARCH = " UPDATESEARCH";
+export const FILTERLIST = "FILTERLIST";
+export const UPDATESEARCH = "UPDATESEARCH";
+export const CURRENTPAGE = "CURRENTPAGE";
 
 const initialState = {
     VideoGameList: [],
     ListFiltered: [],
     GameDetail: {},
+    currentPage: 0,
     search: "",
 };
 
@@ -20,6 +22,8 @@ export function reducer(state = initialState, action) {
             return { ...state, ListFiltered: action.payload };
         case UPDATESEARCH:
             return { ...state, search: action.payload };
+        case CURRENTPAGE:
+            return { ...state, currentPage: action.payload };
         default:
             return { ...state };
     }

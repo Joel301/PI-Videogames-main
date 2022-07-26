@@ -1,5 +1,5 @@
 const { default: axios } = require("axios");
-const { Router } = require("express");
+const { Router, response } = require("express");
 require("dotenv").config();
 const { APIKEY } = process.env;
 
@@ -11,20 +11,31 @@ const getVideogameDataList = async (args) => {
     const { name, id } = args;
     let params = {
         key: APIKEY,
-        search: name,
     };
-    let { data } = await axios.get(`${APIURL}`, { params });
+    if (name) {
+        params.search = name;
+    }
+    console.log(params);
+    try {
+        var response = await axios.get(`${APIURL}`, { params });
+        var data = response.data;
+    } catch (error) {
+        console.log("response");
+    }
+    console.log(response.data);
     const limit = !!name ? 15 : 100;
     const res = [];
     while (res.length < limit) {
+        //add an exception
         while (res.length < limit && data.results.length > 0) {
             const { id, name, background_image } = data.results.shift();
             if (!id) break;
             res.push({ ID: id, name, background_image });
         }
-        let response = await axios.get(data.next);
+        response = await axios.get(data.next);
         data = response.data;
     }
+    console.log(res);
     return res;
 };
 
@@ -79,20 +90,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    /*
-    {
-    "name": "el juegito",
-    "description": "la description",
-    "plataformas": [
-        "plataforma1",
-        "plataforma2"
-    ],
-    "generos": [
-        "genero",
-        "genero2"
-    ]
-}
-    */
     const elbody = req.body;
     console.log(elbody);
     res.json(elbody);
