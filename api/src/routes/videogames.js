@@ -15,27 +15,32 @@ const getVideogameDataList = async (args) => {
     if (name) {
         params.search = name;
     }
-    console.log(params);
     try {
         var response = await axios.get(`${APIURL}`, { params });
         var data = response.data;
     } catch (error) {
-        console.log("response");
+        // console.log("response");
     }
-    console.log(response.data);
     const limit = !!name ? 15 : 100;
     const res = [];
     while (res.length < limit) {
-        //add an exception
+        if (data.results.length == 0) break;
         while (res.length < limit && data.results.length > 0) {
-            const { id, name, background_image } = data.results.shift();
+            const game = data.results.shift();
+            const { id, name, background_image, rating } = game;
+            const genres = game.genres.map((genre) => {
+                return {
+                    ID: genre.id,
+                    Nombre: genre.name,
+                };
+            });
             if (!id) break;
-            res.push({ ID: id, name, background_image });
+            res.push({ ID: id, name, background_image, rating, genres });
         }
+        if (!data.next) break;
         response = await axios.get(data.next);
         data = response.data;
     }
-    console.log(res);
     return res;
 };
 

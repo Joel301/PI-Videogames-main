@@ -12,6 +12,7 @@ function VideoGameCard({ props }) {
             />
             <div>
                 <a href={`/home/${props.ID}`}>{props.name}</a>
+                <p>{" " + props.rating}</p>
             </div>
         </div>
     );
