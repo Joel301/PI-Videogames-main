@@ -41,6 +41,7 @@ function CardContainer(props) {
     // }, [search]);
     return (
         <div>
+            <a href="/newgame">newgame</a>
             <SearchBar />
             {ListFiltered.length != 0 ? (
                 ""

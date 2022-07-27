@@ -63,6 +63,7 @@ export function reducer(state = initialState, action) {
                 ListFiltered: state.ListFiltered.sort(
                     orderFunction[state.orderBy]
                 ),
+                currentPage: 0,
             };
         default:
             return { ...state };
