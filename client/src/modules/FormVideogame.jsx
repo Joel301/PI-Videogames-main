@@ -34,7 +34,10 @@ function FormVideogame(props) {
     const handleOnchangeRating = (e) => {
         const raging = e.target.value; //.replace(/[^a-zA-Z0-9_\s]/, ""); //only takes alphanumerical and spaces
         setGame({ ...game, rating: raging });
-        console.log(game);
+    };
+    const handleOnchangePlataforms = (e) => {
+        const plataforms = e.target.value; //.replace(/[^a-zA-Z0-9_\s]/, ""); //only takes alphanumerical and spaces
+        setGame({ ...game, plataforms });
     };
     // ID
     // name*
@@ -42,6 +45,27 @@ function FormVideogame(props) {
     // releaseDate
     // rating
     // platforms
+
+    const changeGenre = (e) => {
+        const idGenre = Number(e.target.value);
+        if (!game.genres) {
+            setGame({ ...game, genres: [idGenre] });
+            console.log(game, test);
+            return;
+        }
+        if (!game.genres.includes(idGenre)) {
+            setGame({
+                ...game,
+                genres: [...game.genres, idGenre],
+            });
+        } else {
+            setGame({
+                ...game,
+                genres: game.genres.filter((element) => element != idGenre),
+            });
+        }
+    };
+
     useEffect(() => {
         genresList().then((r) => {
             setGenres(r);
@@ -71,12 +95,29 @@ function FormVideogame(props) {
                 step={0.1}
                 onChange={(e) => handleOnchangeRating(e)}
             />
-            {console.log(genres)}
+            <br />
+            <label htmlFor="">Plataforms: </label>
+            <input
+                type="text"
+                name=""
+                id=""
+                onChange={(e) => handleOnchangePlataforms(e)}
+            />
             <div>
                 Generos:
                 {Object.keys(genres).map((id) => (
-                    <div>
-                        <input type={"checkbox"} />
+                    <div key={`genreContainer_${genres[id].ID}`}>
+                        <input
+                            value={genres[id].ID}
+                            type={"checkbox"}
+                            checked={
+                                !!game.genres &&
+                                game.genres.indexOf(Number(genres[id].ID)) != -1
+                            }
+                            onChange={(e) => {
+                                changeGenre(e);
+                            }}
+                        />
                         <label htmlFor="">{genres[id].Nombre}</label>
                     </div>
                 ))}
