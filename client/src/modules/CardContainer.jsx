@@ -1,3 +1,4 @@
+import "./CardContainer.css";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterList, refresList, updateVideoGameList } from "../redux/actions";
@@ -40,9 +41,17 @@ function CardContainer(props) {
     //     }, 5000);
     // }, [search]);
     return (
-        <div>
-            <a href="/newgame">newgame</a>
+        <div className="VideoGameCardContainer">
+            <a 
+            href="/newgame">newgame</a>
             <SearchBar />
+            <div className="VideGameCardDeck">
+                {[ListFiltered.length == 0 ? VideoGameList : ListFiltered][0]
+                    .slice(currentPage * PAGESIZE, (currentPage + 1) * PAGESIZE)
+                    .map((game) => (
+                        <VideoGameCard props={game} />
+                    ))}
+            </div>
             {ListFiltered.length != 0 ? (
                 ""
             ) : (
@@ -50,11 +59,6 @@ function CardContainer(props) {
                     PAGESIZE={Math.floor(VideoGameList.length / PAGESIZE)}
                 />
             )}
-            {[ListFiltered.length == 0 ? VideoGameList : ListFiltered][0]
-                .slice(currentPage * PAGESIZE, (currentPage + 1) * PAGESIZE)
-                .map((game) => (
-                    <VideoGameCard props={game} />
-                ))}
         </div>
     );
 }

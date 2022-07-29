@@ -16,9 +16,9 @@ const loadGenres = async () => {
     });
     // console.log(Genre);
     genresArray.map(async (gen) => {
-        await Genre.create(gen);
+        await Genre.findOrCreate({ where: { ...gen } });
     });
-    console.log('done')
+    console.log("done");
 };
 
 module.exports = loadGenres;

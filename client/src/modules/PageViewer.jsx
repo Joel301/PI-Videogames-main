@@ -1,3 +1,4 @@
+import "./PageViewer.css";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePage } from "../redux/actions";
@@ -10,13 +11,15 @@ function PageViewer({ PAGESIZE }) {
         return <div></div>;
     }
     return (
-        <div>
+        <div className="PageReel">
             {[...Array(PAGESIZE).keys()].map((page) => {
                 return (
-                    <div key={`pagenum${page}`}>
-                        <a href="#" onClick={() => dispatch(updatePage(page))}>
-                            {String(page)}
-                        </a>
+                    <div
+                        key={`pagenum${page}`}
+                        className="PageButton"
+                        onClick={() => dispatch(updatePage(page))}
+                    >
+                        {String(page + 1)}
                     </div>
                 );
             })}

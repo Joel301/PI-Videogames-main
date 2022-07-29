@@ -1,5 +1,9 @@
 const { default: axios } = require("axios");
 const { Router, response } = require("express");
+const { Op } = require("sequelize");
+// const Genre = require("../models/Genre");
+// const Videogame = require("../models/Videogame");
+const { Videogame, Genre } = require("./../db");
 require("dotenv").config();
 const { APIKEY } = process.env;
 
@@ -23,6 +27,17 @@ const getVideogameDataList = async (args) => {
     }
     const limit = !!name ? 15 : 100;
     const res = [];
+
+    const videogamesInDB = await Videogame.findAll(
+        name ? { where: { name: { [Op.like]: name } } } : { include: Genre }
+    );
+    console.log(
+        videogamesInDB.map((g) => {
+            res.push(g.dataValues);
+            return g.dataValues;
+        })
+    );
+
     while (res.length < limit) {
         if (data.results.length == 0) break;
         while (res.length < limit && data.results.length > 0) {
@@ -49,6 +64,14 @@ const getVideogameById = async (id_) => {
     const params = {
         key: APIKEY,
     };
+
+    const game = await Videogame.findByPk(id_, {
+        include: Genre,
+    }).catch(() => {});
+    if (game) {
+        return game.dataValues;
+    }
+    console.log("iget here", game);
     try {
         const { data } = await axios.get(`${APIURL}/${id_}`, { params });
         const { id, name, background_image, description, released, rating } =
@@ -94,8 +117,24 @@ router.get("/", (req, res) => {
     getVideogameDataList({}).then((data) => res.json(data));
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
     const elbody = req.body;
+    const { genres, ...gameInfo } = req.body;
+    const game = await Videogame.create(gameInfo);
+
+    // {name: 'asdf', description: 'asdf', releaseDate: '2022-07-27', rating: '3.5', plataforms: 'asdf', …}
+    // ID
+    // name
+    // description
+    // releaseDate
+    // rating
+    // platforms
+    console.log(game);
+    await genres.forEach(async (element) => {
+        const genre = await Genre.findByPk(element);
+        await game.addGenre(genre);
+    });
+    // console.log(game, genres);
     console.log(elbody);
     res.json(elbody);
 });

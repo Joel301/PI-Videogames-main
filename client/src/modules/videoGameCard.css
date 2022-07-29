@@ -1,9 +1,53 @@
-.VideoGameCardContainer {
-    height: 30vh;
-    width: 50vh;
+.VideoGameCard {
+    height: 210px;
+    width: 150px;
+    border: 0.8px solid #b1a58a;
+    border-radius: 19px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    margin: 2px;
+    align-content: space-between;
+    flex-wrap: wrap;
+}
+.CardImg {
+    max-width: 140px;
+    max-height: 89px;
+    height: auto;
 }
 
-.CardImg {
-    /* height: 230px; */
-    width: 230px;
+.cardTitle {
+    font-size: 14px;
+    text-decoration: none;
+    color: #ceb497;
+    font-family: Arial;
+    margin-top: 4px;
+}
+
+.GenreList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: stretch;
+    justify-content: space-around;
+    margin-top: auto;
+}
+.GenreItem {
+    font-size: 10px;
+    padding: 0 4px;
+}
+
+.RatingImage {
+    display: block;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+a {
+    text-decoration: none;
+    color: currentColor;
 }

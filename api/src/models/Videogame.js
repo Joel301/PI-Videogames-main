@@ -24,6 +24,7 @@ module.exports = (sequelize) => {
             ID: {
                 type: DataTypes.UUID,
                 primaryKey: true,
+                defaultValue: DataTypes.UUIDV4,
             },
             name: {
                 type: DataTypes.STRING,
@@ -39,7 +40,7 @@ module.exports = (sequelize) => {
             rating: {
                 type: DataTypes.FLOAT,
             },
-            platforms: {
+            plataforms: {
                 type: DataTypes.STRING,
             },
         },

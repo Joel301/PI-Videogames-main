@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+const URLAPI = "http://localhost:3001/";
 
 async function genresList() {
-    const URLAPI = "http://localhost:3001/genres";
-    const response = await fetch(URLAPI);
+    const response = await fetch(`${URLAPI}genres`);
     const payload = await response.json();
     return payload;
 }
@@ -50,7 +50,7 @@ function FormVideogame(props) {
         const idGenre = Number(e.target.value);
         if (!game.genres) {
             setGame({ ...game, genres: [idGenre] });
-            console.log(game, test);
+
             return;
         }
         if (!game.genres.includes(idGenre)) {
@@ -72,10 +72,23 @@ function FormVideogame(props) {
         });
         console.log(genres);
     }, []);
+    const submit = (e) => {
+        e.preventDefault();
+        fetch(`${URLAPI}videogames`, {
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify({ ...game }),
+        });
+        console.log(game);
+    };
     // useEffect(() => {}, [GENRES]);
     return (
-        <form>
+        <form onSubmit={(e) => submit(e)}>
             <a href="/home">back</a>
+            <input type="submit" value="Guardar" />
             <br /> <label htmlFor="">Nombre</label>{" "}
             <input type="text" onChange={(e) => handleOnchangeName(e)} />
             <br /> <label htmlFor="">Descripción</label>{" "}

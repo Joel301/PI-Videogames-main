@@ -1,0 +1,21 @@
+.PageReel {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.PageButton {
+    display: flex;
+    height: 25px;
+    width: 25px;
+    border: solid 1px;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin: 1px;
+    padding: 1px;
+    border-radius: 5px;
+}

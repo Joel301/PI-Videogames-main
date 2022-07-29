@@ -1,0 +1,30 @@
+.searchBarContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+.search {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 14px;
+    font: Arial;
+}
+.OrderContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: stretch;
+    justify-content: center;
+    align-items: center;
+}
+
+.orderItem {
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    justify-content: space-evenly;
+    align-items: stretch;
+}
