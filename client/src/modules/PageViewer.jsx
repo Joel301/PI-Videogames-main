@@ -11,7 +11,7 @@ function PageViewer({ PAGESIZE }) {
         return <div></div>;
     }
     return (
-        <div className="PageReel">
+        <div className="PageReel" key="PageReel">
             {[...Array(PAGESIZE).keys()].map((page) => {
                 return (
                     <div

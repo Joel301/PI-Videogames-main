@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 function VideoGameCard({ props }) {
     return (
-        <NavLink to={`/home/${props.ID}`}>
+        <NavLink to={`/home/${props.ID}`} key={`linkTo_ ${props.ID}`}>
             <div className="VideoGameCard" key={props.ID}>
                 <a className="cardTitle" href={`/home/${props.ID}`}>
                     {props.name}

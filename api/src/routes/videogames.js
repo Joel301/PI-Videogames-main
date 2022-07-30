@@ -39,7 +39,7 @@ const getVideogameDataList = async (args) => {
     );
 
     while (res.length < limit) {
-        if (data.results.length == 0) break;
+        if (!data.results || data.results.length == 0) break;
         while (res.length < limit && data.results.length > 0) {
             const game = data.results.shift();
             const { id, name, background_image, rating } = game;

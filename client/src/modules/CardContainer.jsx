@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterList, refresList, updateVideoGameList } from "../redux/actions";
 import { order } from "../redux/reducer";
 import PageViewer from "./PageViewer";
-import SearchBar from "./SearchBar";
+import SearchBar from "./SearchBar/index";
 import VideoGameCard from "./VideoGameCard";
 
 const PAGESIZE = 15;
@@ -29,23 +29,11 @@ function CardContainer(props) {
     useEffect(() => {
         dispatch(refresList());
     }, [orderBy]);
-    // useEffect(() => {
-    //     var searchCopy = search.split()[0];
-    //     return setTimeout(() => {
-    //         if (searchCopy != search) {
-    //             console.log(search, searchCopy, "this is an exit");
-    //         } else {
-    //             console.log(search, searchCopy, "this is an entering");
-    //             filterList(search).then((r) => dispatch(r));
-    //         }
-    //     }, 5000);
-    // }, [search]);
     return (
         <div className="VideoGameCardContainer">
-            <a 
-            href="/newgame">newgame</a>
+            <a href="/newgame">newgame</a>
             <SearchBar />
-            <div className="VideGameCardDeck">
+            <div className="VideGameCardDeck" key="VideGameCardDeck">
                 {[ListFiltered.length == 0 ? VideoGameList : ListFiltered][0]
                     .slice(currentPage * PAGESIZE, (currentPage + 1) * PAGESIZE)
                     .map((game) => (
