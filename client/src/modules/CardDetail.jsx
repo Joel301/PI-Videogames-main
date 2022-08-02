@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { getGameDetail } from "../redux/actions";
 
 function CardDetail(props) {
+    // let history = useHistory();
     const { ID } = useParams();
     const dispatch = useDispatch();
     const { GameDetail } = useSelector((state) => state);
@@ -14,14 +15,22 @@ function CardDetail(props) {
 
     return (
         <div>
-            <a href="/home">back</a>
+            {/* <input type="button" onClick={}/> */}
+            {/* <NavLink to={history.goBack}>Back</NavLink> */}
+            <NavLink to="/home">Back</NavLink>
             <h1>{GameDetail.name}</h1>
             {/* {GameDetail.genres} */}
-            {/* {GameDetail.plataform} */}
+            {GameDetail.plataform ? GameDetail.plataform : ""}
+            {console.log(GameDetail.plataform)}
             <div>{GameDetail.rating}</div>
             <div>{GameDetail.released}</div>
-            {GameDetail.description}
-            <img src={GameDetail.background_image} alt="" srcset="" />
+            <div
+                // className={styles.detailDescripcion}
+                dangerouslySetInnerHTML={{
+                    __html: GameDetail.description,
+                }}
+            ></div>
+            <img src={GameDetail.background_image} alt={GameDetail.name} />
         </div>
     );
 }

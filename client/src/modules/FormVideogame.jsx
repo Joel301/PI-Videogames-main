@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 const URLAPI = "http://localhost:3001/";
 
 async function genresList() {
@@ -36,7 +37,7 @@ function FormVideogame(props) {
         setGame({ ...game, rating: raging });
     };
     const handleOnchangePlataforms = (e) => {
-        const plataforms = e.target.value; //.replace(/[^a-zA-Z0-9_\s]/, ""); //only takes alphanumerical and spaces
+        const plataforms = e.target.value.replace(/[^a-zA-Z0-9_\s]/, ""); //only takes alphanumerical and spaces
         setGame({ ...game, plataforms });
     };
     // ID
@@ -81,13 +82,13 @@ function FormVideogame(props) {
             },
             method: "POST",
             body: JSON.stringify({ ...game }),
-        });
+        }).catch();
         console.log(game);
     };
     // useEffect(() => {}, [GENRES]);
     return (
         <form onSubmit={(e) => submit(e)}>
-            <a href="/home">back</a>
+            <NavLink to="/home">Back</NavLink>
             <input type="submit" value="Guardar" />
             <br /> <label htmlFor="">Nombre</label>{" "}
             <input type="text" onChange={(e) => handleOnchangeName(e)} />

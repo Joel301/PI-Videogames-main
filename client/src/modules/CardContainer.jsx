@@ -15,7 +15,10 @@ function CardContainer(props) {
         useSelector((state) => state);
 
     useEffect(() => {
-        updateVideoGameList().then((r) => dispatch(r));
+        if (VideoGameList.length == 0) {
+            console.log(`${VideoGameList.length}llamado a la api`);
+            updateVideoGameList().then((r) => dispatch(r));
+        }
     }, []);
 
     useEffect(() => {

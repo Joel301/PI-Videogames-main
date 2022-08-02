@@ -76,9 +76,9 @@ const getVideogameById = async (id_) => {
         const { data } = await axios.get(`${APIURL}/${id_}`, { params });
         const { id, name, background_image, description, released, rating } =
             data;
-        const plataform = data.platforms.map(
-            (plataform) => plataform.platform.name
-        );
+        const plataform = data.platforms
+            .map((plataform) => plataform.platform.name)
+            .join(", ");
         const genres = data.genres.map((genre) => {
             return {
                 ID: genre.id,
