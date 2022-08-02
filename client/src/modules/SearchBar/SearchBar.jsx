@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeOrder, updateSearch } from "../../redux/actions";
 import OrderSelector from "./OrderSelector";
+import FilterMenu from "./FilterMenu";
 
 function SearchBar(props) {
     const search = useSelector((state) => state.search);
@@ -23,6 +24,7 @@ function SearchBar(props) {
                 />
             </div>
             <OrderSelector />
+            <FilterMenu />
         </div>
     );
 }

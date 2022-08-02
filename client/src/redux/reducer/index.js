@@ -13,6 +13,11 @@ export const order = {
     RATINGDESC: "RATINGDESC",
 };
 
+export const filterOrigin = {
+    USERCREATE: "USERCREATE",
+    APIGAME: "APIGAME",
+};
+
 // (function (a, b) {
 //     return ('' + a.attr).localeCompare(b.attr);
 // })
@@ -23,6 +28,7 @@ export const orderFunction = {
     RATINGASC: (a, b) => a.rating - b.rating,
     RATINGDESC: (a, b) => b.rating - a.rating,
 };
+
 const initialState = {
     VideoGameList: [],
     ListFiltered: [],
@@ -30,6 +36,10 @@ const initialState = {
     currentPage: 0,
     orderBy: order.NOMBREASC,
     search: "",
+    filters: {
+        origin: [],
+        genre: [],
+    },
 };
 
 export function reducer(state = initialState, action) {
