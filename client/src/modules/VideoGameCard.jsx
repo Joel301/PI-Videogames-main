@@ -20,7 +20,7 @@ function VideoGameCard({ props }) {
                     <p className="GenreList">
                         {props.genres.map((gen) => (
                             <div className="GenreItem">
-                                {" " + ` ${gen.Nombre} ` + " "}
+                                {` ${gen.Nombre} `}
                             </div>
                         ))}
                     </p>

@@ -62,7 +62,7 @@ function FormVideogame(props) {
         } else {
             setGame({
                 ...game,
-                genres: game.genres.filter((element) => element != idGenre),
+                genres: game.genres.filter((element) => element !== idGenre),
             });
         }
     };
@@ -72,7 +72,7 @@ function FormVideogame(props) {
             setGenres(r);
         });
         console.log(genres);
-    }, []);
+    }, [genres]);
     const submit = (e) => {
         e.preventDefault();
         fetch(`${URLAPI}videogames`, {
@@ -126,7 +126,8 @@ function FormVideogame(props) {
                             type={"checkbox"}
                             checked={
                                 !!game.genres &&
-                                game.genres.indexOf(Number(genres[id].ID)) != -1
+                                game.genres.indexOf(Number(genres[id].ID)) !==
+                                    -1
                             }
                             onChange={(e) => {
                                 changeGenre(e);
