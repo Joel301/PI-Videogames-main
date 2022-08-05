@@ -42,7 +42,6 @@ function FormVideogame(props) {
         const idGenre = Number(e.target.value);
         if (!game.genres) {
             setGame({ ...game, genres: [idGenre] });
-
             return;
         }
         if (!game.genres.includes(idGenre)) {
@@ -77,7 +76,7 @@ function FormVideogame(props) {
         })
             .then((res) => {
                 console.log(res);
-                if (res.status == 400) {
+                if (res.status === 400) {
                     res.json().then((e) => {
                         console.log(e);
                         setError(e.msg);
@@ -95,44 +94,47 @@ function FormVideogame(props) {
     return (
         <form onSubmit={(e) => submit(e)} className="frmVideoGames">
             <NavLink to="/home">Back</NavLink>
-            <label htmlFor="">
+            <h2>AGREGA UN VIDEOJUEGO</h2>
+            <label>
                 Nombre
-                <h1>AGREGA UN VIDEOJUEGO</h1>
-            </label>
-            <label htmlFor="">
-                Descripción
                 <input type="text" onChange={(e) => handleOnchangeName(e)} />
             </label>
-            <label htmlFor="">
-                Lanzamiento
+            <label>
+                Descripción
                 <input type="text" onChange={(e) => handleOnchangeDesc(e)} />
             </label>
-            <input
-                type="date"
-                value={game.releaseDate ? game.releaseDate : ""}
-                onChange={(e) => handleOnchangeDate(e)}
-            />
-            <br /> <label htmlFor="">Rating</label>{" "}
-            <input
-                type="range"
-                value={game.rating ? game.rating : 0}
-                max={5}
-                min={0}
-                step={0.1}
-                onChange={(e) => handleOnchangeRating(e)}
-            />
-            <br />
-            <label htmlFor="">Plataforms: </label>
-            <input
-                type="text"
-                name=""
-                id=""
-                onChange={(e) => handleOnchangePlataforms(e)}
-            />
-            <div>
-                Generos:
+            <label>
+                Lanzamiento
+                <input
+                    type="date"
+                    value={game.releaseDate ? game.releaseDate : ""}
+                    onChange={(e) => handleOnchangeDate(e)}
+                />
+            </label>
+            <label htmlFor="">
+                Rating
+                <input
+                    type="range"
+                    value={game.rating ? game.rating : 0}
+                    max={5}
+                    min={0}
+                    step={0.1}
+                    onChange={(e) => handleOnchangeRating(e)}
+                />
+            </label>
+            <label>
+                Plataforms:
+                <input
+                    type="text"
+                    name=""
+                    id=""
+                    onChange={(e) => handleOnchangePlataforms(e)}
+                />
+            </label>
+            Generos:
+            <div className="generesContainer">
                 {Object.keys(genres).map((id) => (
-                    <div key={`genreContainer_${genres[id].ID}`}>
+                    <div className="genCheckContainer" key={`genreContainer_${genres[id].ID}`}>
                         <input
                             value={genres[id].ID}
                             type={"checkbox"}
@@ -148,9 +150,9 @@ function FormVideogame(props) {
                         <label htmlFor="">{genres[id].Nombre}</label>
                     </div>
                 ))}
-                <input type="submit" value="Guardar" />
-                <div>{error}</div>
             </div>
+            <div>{error}</div>
+            <input type="submit" value="Guardar" />
         </form>
     );
 }
