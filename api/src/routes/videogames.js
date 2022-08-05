@@ -120,23 +120,24 @@ router.get("/", (req, res) => {
 router.post("/", async (req, res) => {
     const elbody = req.body;
     const { genres, ...gameInfo } = req.body;
-    const game = await Videogame.create(gameInfo);
-
-    // {name: 'asdf', description: 'asdf', releaseDate: '2022-07-27', rating: '3.5', plataforms: 'asdf', …}
-    // ID
-    // name
-    // description
-    // releaseDate
-    // rating
-    // platforms
-    console.log(game);
-    await genres.forEach(async (element) => {
-        const genre = await Genre.findByPk(element);
-        await game.addGenre(genre);
-    });
-    // console.log(game, genres);
-    console.log(elbody);
-    res.json(elbody);
+    if (
+        !Object.keys(gameInfo).includes("name") ||
+        !Object.keys(gameInfo).includes("description")
+    ) {
+        res.status(400).json({
+            msg: "must include at least name and description",
+        });
+    } else {
+        const game = await Videogame.create(gameInfo);
+        console.log(game);
+        await genres.forEach(async (element) => {
+            const genre = await Genre.findByPk(element);
+            await game.addGenre(genre);
+        });
+        // console.log(game, genres);
+        console.log(elbody);
+        res.json(elbody);
+    }
 });
 
 module.exports = router;

@@ -1,3 +1,4 @@
+import "./FormVideogame.css";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
@@ -12,6 +13,7 @@ async function genresList() {
 function FormVideogame(props) {
     const [game, setGame] = useState({ name: "" });
     const [genres, setGenres] = useState({});
+    const [error, setError] = useState("");
 
     // var GENRES = [];
     // genresList().then((list) => {
@@ -40,13 +42,6 @@ function FormVideogame(props) {
         const plataforms = e.target.value.replace(/[^a-zA-Z0-9_\s]/, ""); //only takes alphanumerical and spaces
         setGame({ ...game, plataforms });
     };
-    // ID
-    // name*
-    // description*
-    // releaseDate
-    // rating
-    // platforms
-
     const changeGenre = (e) => {
         const idGenre = Number(e.target.value);
         if (!game.genres) {
@@ -72,7 +67,8 @@ function FormVideogame(props) {
             setGenres(r);
         });
         console.log(genres);
-    }, [genres]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     const submit = (e) => {
         e.preventDefault();
         fetch(`${URLAPI}videogames`, {
@@ -82,14 +78,27 @@ function FormVideogame(props) {
             },
             method: "POST",
             body: JSON.stringify({ ...game }),
-        }).catch();
+        })
+            .then((res) => {
+                console.log(res);
+                if (res.status == 400) {
+                    res.json().then((e) => {
+                        console.log(e);
+                        setError(e.msg);
+                    });
+                } else {
+                    setError("");
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
         console.log(game);
     };
     // useEffect(() => {}, [GENRES]);
     return (
-        <form onSubmit={(e) => submit(e)}>
+        <form onSubmit={(e) => submit(e)} className="frmVideoGames">
             <NavLink to="/home">Back</NavLink>
-            <input type="submit" value="Guardar" />
             <br /> <label htmlFor="">Nombre</label>{" "}
             <input type="text" onChange={(e) => handleOnchangeName(e)} />
             <br /> <label htmlFor="">Descripción</label>{" "}
@@ -136,6 +145,8 @@ function FormVideogame(props) {
                         <label htmlFor="">{genres[id].Nombre}</label>
                     </div>
                 ))}
+                <input type="submit" value="Guardar" />
+                <div>{error}</div>
             </div>
         </form>
     );

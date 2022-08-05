@@ -18,9 +18,6 @@ export const filterOrigin = {
     APIGAME: "APIGAME",
 };
 
-// (function (a, b) {
-//     return ('' + a.attr).localeCompare(b.attr);
-// })
 
 export const orderFunction = {
     NOMBREASC: (a, b) => ("" + a.name).localeCompare(b.name),
