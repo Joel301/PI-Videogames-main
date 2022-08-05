@@ -1,6 +1,7 @@
 .frmVideoGames {
-    /* background-color: black; */
-    width: 95vh;
+    width: 95vw;
     height: 95vh;
     margin: 2.5vh;
+    display: flex;
+    flex-direction: column;
 }

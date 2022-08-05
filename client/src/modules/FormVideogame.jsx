@@ -15,10 +15,6 @@ function FormVideogame(props) {
     const [genres, setGenres] = useState({});
     const [error, setError] = useState("");
 
-    // var GENRES = [];
-    // genresList().then((list) => {
-    //     GENRES = list;
-    // });
     const handleOnchangeName = (e) => {
         const text = e.target.value.replace(/[^a-zA-Z0-9_\s]/, ""); //only takes alphanumerical and spaces
         setGame({ ...game, name: text });
@@ -99,11 +95,18 @@ function FormVideogame(props) {
     return (
         <form onSubmit={(e) => submit(e)} className="frmVideoGames">
             <NavLink to="/home">Back</NavLink>
-            <br /> <label htmlFor="">Nombre</label>{" "}
-            <input type="text" onChange={(e) => handleOnchangeName(e)} />
-            <br /> <label htmlFor="">Descripción</label>{" "}
-            <input type="text" onChange={(e) => handleOnchangeDesc(e)} />
-            <br /> <label htmlFor="">Lanzamiento</label>{" "}
+            <label htmlFor="">
+                Nombre
+                <h1>AGREGA UN VIDEOJUEGO</h1>
+            </label>
+            <label htmlFor="">
+                Descripción
+                <input type="text" onChange={(e) => handleOnchangeName(e)} />
+            </label>
+            <label htmlFor="">
+                Lanzamiento
+                <input type="text" onChange={(e) => handleOnchangeDesc(e)} />
+            </label>
             <input
                 type="date"
                 value={game.releaseDate ? game.releaseDate : ""}
