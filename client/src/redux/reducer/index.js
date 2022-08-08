@@ -5,6 +5,7 @@ export const UPDATESEARCH = "UPDATESEARCH";
 export const CURRENTPAGE = "CURRENTPAGE";
 export const CHANGEORDER = "CHANGEORDER";
 export const REFRESHLIST = "REFRESHLIST";
+export const CHANGEFILTERGENRE = "CHANGEFILTERGENRE";
 
 export const order = {
     NOMBREASC: "NOMBREASC",
@@ -17,7 +18,6 @@ export const filterOrigin = {
     USERCREATE: "USERCREATE",
     APIGAME: "APIGAME",
 };
-
 
 export const orderFunction = {
     NOMBREASC: (a, b) => ("" + a.name).localeCompare(b.name),
@@ -35,7 +35,7 @@ const initialState = {
     search: "",
     filters: {
         origin: [],
-        genre: [],
+        genre: "",
     },
 };
 
@@ -71,6 +71,11 @@ export function reducer(state = initialState, action) {
                     orderFunction[state.orderBy]
                 ),
                 currentPage: 0,
+            };
+        case CHANGEFILTERGENRE:
+            return {
+                ...state,
+                filters: { ...state.filters, genre: action.payload },
             };
         default:
             return { ...state };

@@ -8,6 +8,7 @@ import {
     CHANGEORDER,
     // order,
     REFRESHLIST,
+    CHANGEFILTERGENRE,
 } from "../reducer";
 const URLAPI = "http://localhost:3001/";
 
@@ -42,5 +43,9 @@ export function changeOrder(order) {
     return { type: CHANGEORDER, payload: order };
 }
 export function refresList() {
-    return { type: REFRESHLIST};
+    return { type: REFRESHLIST };
+}
+
+export function changeFilterGenre(payload) {
+    return { type: CHANGEFILTERGENRE, payload: Number(payload) };
 }
