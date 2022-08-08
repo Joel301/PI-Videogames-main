@@ -95,15 +95,15 @@ function FormVideogame(props) {
         <form onSubmit={(e) => submit(e)} className="frmVideoGames">
             <NavLink to="/home">Back</NavLink>
             <h2>AGREGA UN VIDEOJUEGO</h2>
-            <label>
+            <label className="campo">
                 Nombre
                 <input type="text" onChange={(e) => handleOnchangeName(e)} />
             </label>
-            <label>
+            <label className="campo">
                 Descripción
                 <input type="text" onChange={(e) => handleOnchangeDesc(e)} />
             </label>
-            <label>
+            <label className="campo">
                 Lanzamiento
                 <input
                     type="date"
@@ -111,7 +111,7 @@ function FormVideogame(props) {
                     onChange={(e) => handleOnchangeDate(e)}
                 />
             </label>
-            <label htmlFor="">
+            <label className="campo">
                 Rating
                 <input
                     type="range"
@@ -122,7 +122,7 @@ function FormVideogame(props) {
                     onChange={(e) => handleOnchangeRating(e)}
                 />
             </label>
-            <label>
+            <label className="campo">
                 Plataforms:
                 <input
                     type="text"
@@ -134,7 +134,10 @@ function FormVideogame(props) {
             Generos:
             <div className="generesContainer">
                 {Object.keys(genres).map((id) => (
-                    <div className="genCheckContainer" key={`genreContainer_${genres[id].ID}`}>
+                    <div
+                        className="genCheckContainer"
+                        key={`genreContainer_${genres[id].ID}`}
+                    >
                         <input
                             value={genres[id].ID}
                             type={"checkbox"}
@@ -151,7 +154,7 @@ function FormVideogame(props) {
                     </div>
                 ))}
             </div>
-            <div>{error}</div>
+            <div className="error">{error}</div>
             <input type="submit" value="Guardar" />
         </form>
     );

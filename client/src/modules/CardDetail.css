@@ -2,7 +2,6 @@
     width: 95vw;
     height: 95vh;
     margin: 2.5vh;
-    background-color: black;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -13,9 +12,9 @@
     min-width: 40vw;
     margin: 1vh;
 }
-.imgContainer {
+/* .imgContainer {
     background-color: black;
-}
+} */
 /* .detailContainer{
 
 } */

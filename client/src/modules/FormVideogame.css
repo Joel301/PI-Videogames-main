@@ -14,8 +14,19 @@
     justify-content: flex-start;
 }
 .genCheckContainer {
-    background-color: black;
     margin: 0.5vh 0;
     padding: 0.2vh;
+    width: 180px;
+    display: flex;
 }
+
+.frmVideoGames label.campo {
+    min-width: 258px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+}
+.error {
+    color: red;
 }
