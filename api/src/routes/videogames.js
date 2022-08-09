@@ -122,7 +122,8 @@ router.post("/", async (req, res) => {
     const { genres, ...gameInfo } = req.body;
     if (
         !Object.keys(gameInfo).includes("name") ||
-        !Object.keys(gameInfo).includes("description")
+        !Object.keys(gameInfo).includes("description") ||
+        gameInfo["name"] === ""
     ) {
         res.status(400).json({
             msg: "must include at least name and description",
@@ -130,10 +131,12 @@ router.post("/", async (req, res) => {
     } else {
         const game = await Videogame.create(gameInfo);
         console.log(game);
-        await genres.forEach(async (element) => {
-            const genre = await Genre.findByPk(element);
-            await game.addGenre(genre);
-        });
+        if (genres) {
+            await genres.forEach(async (element) => {
+                const genre = await Genre.findByPk(element);
+                await game.addGenre(genre);
+            });
+        }
         // console.log(game, genres);
         console.log(elbody);
         res.json(elbody);

@@ -96,15 +96,15 @@ function FormVideogame(props) {
             <NavLink to="/home">Back</NavLink>
             <h2>AGREGA UN VIDEOJUEGO</h2>
             <label className="campo">
-                Nombre
+                Name:
                 <input type="text" onChange={(e) => handleOnchangeName(e)} />
             </label>
             <label className="campo">
-                Descripción
+                Description:
                 <input type="text" onChange={(e) => handleOnchangeDesc(e)} />
             </label>
             <label className="campo">
-                Lanzamiento
+                Launch date:
                 <input
                     type="date"
                     value={game.releaseDate ? game.releaseDate : ""}
@@ -112,7 +112,8 @@ function FormVideogame(props) {
                 />
             </label>
             <label className="campo">
-                Rating
+                Rating:
+                {`⭐ ${game.rating ? game.rating : 0}`}
                 <input
                     type="range"
                     value={game.rating ? game.rating : 0}

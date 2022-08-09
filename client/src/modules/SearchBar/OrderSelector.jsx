@@ -11,22 +11,22 @@ export default function OrderSelector() {
                 {
                     value: order.NOMBREASC,
                     currentSelected: orderBy,
-                    text: "A-Z Nombre",
+                    text: "A-Z Name",
                 },
                 {
                     value: order.NOMBREDESC,
                     currentSelected: orderBy,
-                    text: "Z-A Nombre",
+                    text: "Z-A Name",
                 },
                 {
                     value: order.RATINGDESC,
                     currentSelected: orderBy,
-                    text: "Mejor Rating",
+                    text: "Best Rating",
                 },
                 {
                     value: order.RATINGASC,
                     currentSelected: orderBy,
-                    text: "Peor Rating",
+                    text: "Worst Rating",
                 },
             ].map((object) => OrderItem(object))}
         </div>

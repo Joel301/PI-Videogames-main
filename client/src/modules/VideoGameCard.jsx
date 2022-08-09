@@ -20,7 +20,9 @@ function VideoGameCard({ props }) {
                     key={`CardImg_${props.ID}`}
                 />
                 <div key={`card_${props.ID}`}>
-                    <p className="RatingImage">{" " + props.rating}</p>
+                    <div className="RatingImage" title="Rating">
+                        {"⭐" + props.rating}
+                    </div>
                     <div className="GenreList">
                         {props.genres.map((gen) => (
                             <div

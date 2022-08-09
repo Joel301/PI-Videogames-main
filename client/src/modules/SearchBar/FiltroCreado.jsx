@@ -5,11 +5,11 @@ function FiltroCreado(props) {
         <div>
             <label>
                 <input type="checkbox" name="checkboxCreadoPorUsuario" />
-                Creado por Usuario
+                User created
             </label>
             <label>
                 <input type="checkbox" name="checkboxDeApi" />
-                No creado por Usuario
+                No user created
             </label>
         </div>
     );
