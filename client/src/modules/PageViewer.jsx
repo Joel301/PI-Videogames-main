@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePage } from "../redux/actions";
 
 function PageViewer({ PAGESIZE }) {
+    // const { VideoGameList, currentPage } = useSelector((state) => state);
     const { VideoGameList } = useSelector((state) => state);
     const dispatch = useDispatch();
 

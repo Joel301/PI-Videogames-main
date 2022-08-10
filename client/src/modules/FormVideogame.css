@@ -1,0 +1,32 @@
+.frmVideoGames {
+    width: auto;
+    height: 95vh;
+    margin: 2.5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.generesContainer {
+    display: flex;
+    align-items: flex-start;
+    align-content: stretch;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.genCheckContainer {
+    margin: 0.5vh 0;
+    padding: 0.2vh;
+    width: 180px;
+    display: flex;
+}
+
+.frmVideoGames label.campo {
+    min-width: 258px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+}
+.error {
+    color: red;
+}

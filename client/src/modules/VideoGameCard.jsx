@@ -6,16 +6,31 @@ function VideoGameCard({ props }) {
     return (
         <NavLink to={`/home/${props.ID}`} key={`linkTo_ ${props.ID}`}>
             <div className="VideoGameCard" key={props.ID}>
-                {props.name}
-
-                <img className="CardImg" src={props.background_image} alt="" />
-                <div>
-                    <p className="RatingImage">{props.rating}</p>
-                    <p className="GenreList">
+                <div
+                    className="cardTitle"
+                    href={`/home/${props.ID}`}
+                    key={`cardTitle_${props.ID}`}
+                >
+                    {props.name}
+                </div>
+                <img
+                    className="CardImg"
+                    src={props.background_image}
+                    alt=""
+                    key={`CardImg_${props.ID}`}
+                />
+                <div key={`card_${props.ID}`}>
+                    <div className="RatingImage" title="Rating">
+                        {"⭐" + props.rating}
+                    </div>
+                    <div className="GenreList">
                         {props.genres.map((gen) => (
-                            <div className="GenreItem">{`${gen.Nombre}`}</div>
+                            <div
+                                className="GenreItem"
+                                key={`${props.name}_${gen.Nombre}`}
+                            >{` ${gen.Nombre} `}</div>
                         ))}
-                    </p>
+                    </div>
                 </div>
             </div>
         </NavLink>

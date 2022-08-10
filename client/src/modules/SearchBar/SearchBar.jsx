@@ -14,7 +14,7 @@ function SearchBar(props) {
     return (
         <div className="searchBarContainer" key="searchBarContainer">
             <div className="search" key={"inputSearch"}>
-                <label>Nombre: </label>
+                <label>Search: </label>
                 <input
                     type="text"
                     value={search}

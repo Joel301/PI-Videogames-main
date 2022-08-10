@@ -1,3 +1,4 @@
+import "./FormVideogame.css";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
@@ -12,11 +13,8 @@ async function genresList() {
 function FormVideogame(props) {
     const [game, setGame] = useState({ name: "" });
     const [genres, setGenres] = useState({});
+    const [error, setError] = useState("");
 
-    // var GENRES = [];
-    // genresList().then((list) => {
-    //     GENRES = list;
-    // });
     const handleOnchangeName = (e) => {
         const text = e.target.value.replace(/[^a-zA-Z0-9_\s]/, ""); //only takes alphanumerical and spaces
         setGame({ ...game, name: text });
@@ -40,18 +38,10 @@ function FormVideogame(props) {
         const plataforms = e.target.value.replace(/[^a-zA-Z0-9_\s]/, ""); //only takes alphanumerical and spaces
         setGame({ ...game, plataforms });
     };
-    // ID
-    // name*
-    // description*
-    // releaseDate
-    // rating
-    // platforms
-
     const changeGenre = (e) => {
         const idGenre = Number(e.target.value);
         if (!game.genres) {
             setGame({ ...game, genres: [idGenre] });
-
             return;
         }
         if (!game.genres.includes(idGenre)) {
@@ -62,7 +52,7 @@ function FormVideogame(props) {
         } else {
             setGame({
                 ...game,
-                genres: game.genres.filter((element) => element != idGenre),
+                genres: game.genres.filter((element) => element !== idGenre),
             });
         }
     };
@@ -72,6 +62,7 @@ function FormVideogame(props) {
             setGenres(r);
         });
         console.log(genres);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const submit = (e) => {
         e.preventDefault();
@@ -82,51 +73,79 @@ function FormVideogame(props) {
             },
             method: "POST",
             body: JSON.stringify({ ...game }),
-        }).catch();
+        })
+            .then((res) => {
+                console.log(res);
+                if (res.status === 400) {
+                    res.json().then((e) => {
+                        console.log(e);
+                        setError(e.msg);
+                    });
+                } else {
+                    setError("");
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
         console.log(game);
     };
     // useEffect(() => {}, [GENRES]);
     return (
-        <form onSubmit={(e) => submit(e)}>
+        <form onSubmit={(e) => submit(e)} className="frmVideoGames">
             <NavLink to="/home">Back</NavLink>
-            <input type="submit" value="Guardar" />
-            <br /> <label htmlFor="">Nombre</label>{" "}
-            <input type="text" onChange={(e) => handleOnchangeName(e)} />
-            <br /> <label htmlFor="">Descripción</label>{" "}
-            <input type="text" onChange={(e) => handleOnchangeDesc(e)} />
-            <br /> <label htmlFor="">Lanzamiento</label>{" "}
-            <input
-                type="date"
-                value={game.releaseDate ? game.releaseDate : ""}
-                onChange={(e) => handleOnchangeDate(e)}
-            />
-            <br /> <label htmlFor="">Rating</label>{" "}
-            <input
-                type="range"
-                value={game.rating ? game.rating : 0}
-                max={5}
-                min={0}
-                step={0.1}
-                onChange={(e) => handleOnchangeRating(e)}
-            />
-            <br />
-            <label htmlFor="">Plataforms: </label>
-            <input
-                type="text"
-                name=""
-                id=""
-                onChange={(e) => handleOnchangePlataforms(e)}
-            />
-            <div>
-                Generos:
+            <h2>AGREGA UN VIDEOJUEGO</h2>
+            <label className="campo">
+                Name:
+                <input type="text" onChange={(e) => handleOnchangeName(e)} />
+            </label>
+            <label className="campo">
+                Description:
+                <input type="text" onChange={(e) => handleOnchangeDesc(e)} />
+            </label>
+            <label className="campo">
+                Launch date:
+                <input
+                    type="date"
+                    value={game.releaseDate ? game.releaseDate : ""}
+                    onChange={(e) => handleOnchangeDate(e)}
+                />
+            </label>
+            <label className="campo">
+                Rating:
+                {`⭐ ${game.rating ? game.rating : 0}`}
+                <input
+                    type="range"
+                    value={game.rating ? game.rating : 0}
+                    max={5}
+                    min={0}
+                    step={0.1}
+                    onChange={(e) => handleOnchangeRating(e)}
+                />
+            </label>
+            <label className="campo">
+                Plataforms:
+                <input
+                    type="text"
+                    name=""
+                    id=""
+                    onChange={(e) => handleOnchangePlataforms(e)}
+                />
+            </label>
+            Generos:
+            <div className="generesContainer">
                 {Object.keys(genres).map((id) => (
-                    <div key={`genreContainer_${genres[id].ID}`}>
+                    <div
+                        className="genCheckContainer"
+                        key={`genreContainer_${genres[id].ID}`}
+                    >
                         <input
                             value={genres[id].ID}
                             type={"checkbox"}
                             checked={
                                 !!game.genres &&
-                                game.genres.indexOf(Number(genres[id].ID)) != -1
+                                game.genres.indexOf(Number(genres[id].ID)) !==
+                                    -1
                             }
                             onChange={(e) => {
                                 changeGenre(e);
@@ -136,6 +155,8 @@ function FormVideogame(props) {
                     </div>
                 ))}
             </div>
+            <div className="error">{error}</div>
+            <input type="submit" value="Guardar" />
         </form>
     );
 }

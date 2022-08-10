@@ -1,0 +1,23 @@
+.cardDetailContainer {
+    width: 95vw;
+    height: 95vh;
+    margin: 2.5vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.detailImg {
+    max-width: 40vw;
+    max-height: 95vh;
+    min-width: 40vw;
+    margin: 1vh;
+}
+/* .imgContainer {
+    background-color: black;
+} */
+/* .detailContainer{
+
+} */
+/* .plataform{
+
+} */

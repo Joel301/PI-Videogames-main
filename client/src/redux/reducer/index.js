@@ -6,6 +6,7 @@ export const CURRENTPAGE = "CURRENTPAGE";
 export const CHANGEORDER = "CHANGEORDER";
 export const REFRESHLIST = "REFRESHLIST";
 export const UPDATEFILTERORIGIN = "UPDATEFILTERORIGIN";
+export const CHANGEFILTERGENRE = "CHANGEFILTERGENRE";
 
 export const order = {
     NOMBREASC: "NOMBREASC",
@@ -45,7 +46,7 @@ const initialState = {
     search: "",
     filters: {
         origin: "",
-        genre: [],
+        genre: "",
     },
 };
 
@@ -91,6 +92,11 @@ export function reducer(state = initialState, action) {
                     genre: [...state.filters.genre],
                     origin: action.payload,
                 },
+            };
+        case CHANGEFILTERGENRE:
+            return {
+                ...state,
+                filters: { ...state.filters, genre: action.payload },
             };
         default:
             return { ...state };

@@ -16,8 +16,10 @@ function CardContainer(props) {
 
     useEffect(() => {
         if (VideoGameList.length === 0) {
+            console.log(`${VideoGameList.length}llamado a la api`);
             updateVideoGameList().then((r) => dispatch(r));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -26,10 +28,12 @@ function CardContainer(props) {
             1000
         );
         return () => clearTimeout(dothesearch);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search]);
 
     useEffect(() => {
         dispatch(refresList());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderBy]);
     return (
         <div className="VideoGameCardContainer">
