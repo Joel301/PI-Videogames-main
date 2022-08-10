@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import {
     UPDATEVIDEOGAMELIST,
     GETGAMEDETAIL,
@@ -6,7 +6,7 @@ import {
     CURRENTPAGE,
     FILTERLIST,
     CHANGEORDER,
-    // order,
+    UPDATEFILTERORIGIN,
     REFRESHLIST,
 } from "../reducer";
 const URLAPI = "http://localhost:3001/";
@@ -42,5 +42,8 @@ export function changeOrder(order) {
     return { type: CHANGEORDER, payload: order };
 }
 export function refresList() {
-    return { type: REFRESHLIST};
+    return { type: REFRESHLIST };
+}
+export function updateFilterOrigin(filter) {
+    return { type: UPDATEFILTERORIGIN, payload: filter };
 }

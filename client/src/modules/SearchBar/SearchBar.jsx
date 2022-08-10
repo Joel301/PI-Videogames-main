@@ -1,7 +1,7 @@
 import "./SearchBar.css";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeOrder, updateSearch } from "../../redux/actions";
+import { updateSearch } from "../../redux/actions";
 import OrderSelector from "./OrderSelector";
 import FilterMenu from "./FilterMenu";
 

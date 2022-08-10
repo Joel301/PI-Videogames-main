@@ -2,7 +2,7 @@ import "./CardContainer.css";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterList, refresList, updateVideoGameList } from "../redux/actions";
-import { order } from "../redux/reducer";
+// import { order } from "../redux/reducer";
 import PageViewer from "./PageViewer";
 import SearchBar from "./SearchBar/index";
 import VideoGameCard from "./VideoGameCard";
@@ -15,8 +15,7 @@ function CardContainer(props) {
         useSelector((state) => state);
 
     useEffect(() => {
-        if (VideoGameList.length == 0) {
-            console.log(`${VideoGameList.length}llamado a la api`);
+        if (VideoGameList.length === 0) {
             updateVideoGameList().then((r) => dispatch(r));
         }
     }, []);
@@ -37,13 +36,13 @@ function CardContainer(props) {
             <a href="/newgame">newgame</a>
             <SearchBar />
             <div className="VideGameCardDeck" key="VideGameCardDeck">
-                {[ListFiltered.length == 0 ? VideoGameList : ListFiltered][0]
+                {[ListFiltered.length === 0 ? VideoGameList : ListFiltered][0]
                     .slice(currentPage * PAGESIZE, (currentPage + 1) * PAGESIZE)
                     .map((game) => (
                         <VideoGameCard props={game} />
                     ))}
             </div>
-            {ListFiltered.length != 0 ? (
+            {ListFiltered.length !== 0 ? (
                 ""
             ) : (
                 <PageViewer
