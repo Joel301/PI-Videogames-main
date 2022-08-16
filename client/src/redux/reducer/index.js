@@ -48,18 +48,9 @@ export const filterFunction = (data) => {
     };
 };
 const filterOriginFn = {
-    "": (a) => {
-        console.log(a);
-        return true;
-    },
-    USERCREATE: (a) => {
-        console.log(a);
-        return isNaN(a.ID);
-    },
-    APIGAME: (a) => {
-        console.log(a);
-        return !isNaN(a.ID);
-    },
+    "": (a) => true,
+    USERCREATE: (a) => isNaN(a.ID),
+    APIGAME: (a) => !isNaN(a.ID),
 };
 
 const initialState = {

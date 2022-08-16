@@ -24,7 +24,7 @@ function CardContainer(props) {
         if (VideoGameList.length === 0) {
             console.log(`${VideoGameList.length}llamado a la api`);
             updateVideoGameList().then((r) => {
-                console.log(r, `llamado a la api_`);
+                // console.log(r, `llamado a la api_`);
                 return dispatch(r);
             });
         }

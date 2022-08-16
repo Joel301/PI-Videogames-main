@@ -27,10 +27,13 @@ const getVideogameDataList = async (args) => {
     }
     const limit = !!name ? 15 : 100;
     const res = [];
-
+    console.log(name);
     const videogamesInDB = await Videogame.findAll(
         name ? { where: { name: { [Op.like]: name } } } : { include: Genre }
     );
+    videogamesInDB.map((g) => {
+        res.push(g.dataValues);
+    });
     console.log(
         videogamesInDB.map((g) => {
             res.push(g.dataValues);
