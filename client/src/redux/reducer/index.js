@@ -31,11 +31,10 @@ const orderFunction = {
     RATINGDESC: (a, b) => b.rating - a.rating,
 };
 
-<<<<<<< HEAD
 export const filterFunction = (data) => {
     // const data_ = data;
     // console.log("start", data_);
-    if (data == "") {
+    if (data === "") {
         console.log("estavacio--->", data);
         return (a) => a;
     }
@@ -43,16 +42,24 @@ export const filterFunction = (data) => {
     return (a) => {
         // console.log(a, data_);
         // console.log(a.genres, a.genres.indexOf(data_) != -1);
-        if (a == undefined) return a;
-        return a.genres.map((b) => b.ID).indexOf(data) != -1;
+        if (a === undefined) return a;
+        return a.genres.map((b) => b.ID).indexOf(data) !== -1;
         // return true;
     };
-=======
-const filterFunction = {
-    "": (a) => true,
-    USERCREATE: (a) => isNaN(a),
-    APIGAME: (a) => !isNaN(a),
->>>>>>> 95297c1e95374fa7d5bbdde462694f22f0678299
+};
+const filterOriginFn = {
+    "": (a) => {
+        console.log(a);
+        return true;
+    },
+    USERCREATE: (a) => {
+        console.log(a);
+        return isNaN(a.ID);
+    },
+    APIGAME: (a) => {
+        console.log(a);
+        return !isNaN(a.ID);
+    },
 };
 
 const initialState = {
@@ -82,17 +89,11 @@ export function reducer(state = initialState, action) {
         case FILTERLIST:
             return {
                 ...state,
-<<<<<<< HEAD
                 ListFiltered: action.payload.sort(orderFunction[state.orderBy]),
                 filters: {
-                    origin: [],
+                    origin: "",
                     genre: "",
                 },
-=======
-                ListFiltered: action.payload
-                    .sort(orderFunction[state.orderBy])
-                    .filter(filterFunction[state.filters.origin]),
->>>>>>> 95297c1e95374fa7d5bbdde462694f22f0678299
             };
         case UPDATESEARCH:
             return { ...state, search: action.payload };
@@ -101,33 +102,30 @@ export function reducer(state = initialState, action) {
         case CHANGEORDER:
             return { ...state, orderBy: action.payload };
         case REFRESHLIST:
-            console.log("====", state.ListFiltered == []);
-            console.log("====", [
-                ...state.VideoGameList.sort(
-                    orderFunction[state.orderBy]
-                ).filter((a) => filterFunction(state.filters.genre)(a)),
-            ]);
-            console.log("===2", [
-                ...state.ListFiltered.sort(orderFunction[state.orderBy]).filter(
-                    (a) => filterFunction(state.filters.genre)(a)
+            console.log([
+                ...state.VideoGameList.filter(
+                    filterOriginFn[state.filters.origin]
                 ),
             ]);
-
             var newData =
-                state.search == ""
+                state.search === ""
                     ? [
                           ...state.VideoGameList.sort(
                               orderFunction[state.orderBy]
-                          ).filter((a) =>
-                              filterFunction(state.filters.genre)(a)
-                          ),
+                          )
+                              .filter((a) =>
+                                  filterFunction(state.filters.genre)(a)
+                              )
+                              .filter(filterOriginFn[state.filters.origin]),
                       ]
                     : [
                           ...state.ListFiltered.sort(
                               orderFunction[state.orderBy]
-                          ).filter((a) =>
-                              filterFunction(state.filters.genre)(a)
-                          ),
+                          )
+                              .filter((a) =>
+                                  filterFunction(state.filters.genre)(a)
+                              )
+                              .filter(filterOriginFn[state.filters.origin]),
                       ];
             console.log(newData);
             return {
@@ -142,7 +140,7 @@ export function reducer(state = initialState, action) {
             return {
                 ...state,
                 filters: {
-                    genre: [...state.filters.genre],
+                    ...state.filters,
                     origin: action.payload,
                 },
             };

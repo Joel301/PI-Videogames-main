@@ -46,11 +46,12 @@ export function refresList() {
     return { type: REFRESHLIST };
 }
 export function updateFilterOrigin(filter) {
-    return { type: UPDATEFILTERORIGIN, payload: filter };}
+    return { type: UPDATEFILTERORIGIN, payload: filter };
+}
 
 export function changeFilterGenre(payload) {
     return {
         type: CHANGEFILTERGENRE,
-        payload: payload == "" ? "" : Number(payload),
+        payload: payload === "" ? "" : Number(payload),
     };
 }

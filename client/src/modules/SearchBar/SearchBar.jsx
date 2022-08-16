@@ -9,6 +9,7 @@ function SearchBar(props) {
     const search = useSelector((state) => state.search);
     const dispatch = useDispatch();
     const changeSearch = (e) => {
+        e.preventDefault();
         dispatch(updateSearch(e.target.value));
     };
     return (

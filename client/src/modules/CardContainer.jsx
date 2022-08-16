@@ -43,7 +43,7 @@ function CardContainer(props) {
     useEffect(() => {
         dispatch(refresList());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [orderBy, genre]);
+    }, [orderBy, genre, origin]);
     return (
         <div className="VideoGameCardContainer">
             <a href="/newgame">newgame</a>
