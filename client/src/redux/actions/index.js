@@ -6,7 +6,7 @@ import {
     CURRENTPAGE,
     FILTERLIST,
     CHANGEORDER,
-    // order,
+    UPDATEFILTERORIGIN,
     REFRESHLIST,
     CHANGEFILTERGENRE,
 } from "../reducer";
@@ -45,6 +45,8 @@ export function changeOrder(order) {
 export function refresList() {
     return { type: REFRESHLIST };
 }
+export function updateFilterOrigin(filter) {
+    return { type: UPDATEFILTERORIGIN, payload: filter };}
 
 export function changeFilterGenre(payload) {
     return {

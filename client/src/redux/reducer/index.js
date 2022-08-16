@@ -5,6 +5,7 @@ export const UPDATESEARCH = "UPDATESEARCH";
 export const CURRENTPAGE = "CURRENTPAGE";
 export const CHANGEORDER = "CHANGEORDER";
 export const REFRESHLIST = "REFRESHLIST";
+export const UPDATEFILTERORIGIN = "UPDATEFILTERORIGIN";
 export const CHANGEFILTERGENRE = "CHANGEFILTERGENRE";
 
 export const order = {
@@ -19,13 +20,18 @@ export const filterOrigin = {
     APIGAME: "APIGAME",
 };
 
-export const orderFunction = {
+// (function (a, b) {
+//     return ('' + a.attr).localeCompare(b.attr);
+// })
+
+const orderFunction = {
     NOMBREASC: (a, b) => ("" + a.name).localeCompare(b.name),
     NOMBREDESC: (a, b) => ("" + b.name).localeCompare(a.name),
     RATINGASC: (a, b) => a.rating - b.rating,
     RATINGDESC: (a, b) => b.rating - a.rating,
 };
 
+<<<<<<< HEAD
 export const filterFunction = (data) => {
     // const data_ = data;
     // console.log("start", data_);
@@ -41,6 +47,12 @@ export const filterFunction = (data) => {
         return a.genres.map((b) => b.ID).indexOf(data) != -1;
         // return true;
     };
+=======
+const filterFunction = {
+    "": (a) => true,
+    USERCREATE: (a) => isNaN(a),
+    APIGAME: (a) => !isNaN(a),
+>>>>>>> 95297c1e95374fa7d5bbdde462694f22f0678299
 };
 
 const initialState = {
@@ -51,7 +63,7 @@ const initialState = {
     orderBy: order.NOMBREASC,
     search: "",
     filters: {
-        origin: [],
+        origin: "",
         genre: "",
     },
 };
@@ -70,11 +82,17 @@ export function reducer(state = initialState, action) {
         case FILTERLIST:
             return {
                 ...state,
+<<<<<<< HEAD
                 ListFiltered: action.payload.sort(orderFunction[state.orderBy]),
                 filters: {
                     origin: [],
                     genre: "",
                 },
+=======
+                ListFiltered: action.payload
+                    .sort(orderFunction[state.orderBy])
+                    .filter(filterFunction[state.filters.origin]),
+>>>>>>> 95297c1e95374fa7d5bbdde462694f22f0678299
             };
         case UPDATESEARCH:
             return { ...state, search: action.payload };
@@ -119,6 +137,14 @@ export function reducer(state = initialState, action) {
                 ),
                 ListFiltered: [...newData],
                 currentPage: 0,
+            };
+        case UPDATEFILTERORIGIN:
+            return {
+                ...state,
+                filters: {
+                    genre: [...state.filters.genre],
+                    origin: action.payload,
+                },
             };
         case CHANGEFILTERGENRE:
             return {
