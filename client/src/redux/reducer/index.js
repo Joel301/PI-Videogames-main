@@ -26,6 +26,23 @@ export const orderFunction = {
     RATINGDESC: (a, b) => b.rating - a.rating,
 };
 
+export const filterFunction = (data) => {
+    // const data_ = data;
+    // console.log("start", data_);
+    if (data == "") {
+        console.log("estavacio--->", data);
+        return (a) => a;
+    }
+
+    return (a) => {
+        // console.log(a, data_);
+        // console.log(a.genres, a.genres.indexOf(data_) != -1);
+        if (a == undefined) return a;
+        return a.genres.map((b) => b.ID).indexOf(data) != -1;
+        // return true;
+    };
+};
+
 const initialState = {
     VideoGameList: [],
     ListFiltered: [],
@@ -54,6 +71,10 @@ export function reducer(state = initialState, action) {
             return {
                 ...state,
                 ListFiltered: action.payload.sort(orderFunction[state.orderBy]),
+                filters: {
+                    origin: [],
+                    genre: "",
+                },
             };
         case UPDATESEARCH:
             return { ...state, search: action.payload };
@@ -62,14 +83,41 @@ export function reducer(state = initialState, action) {
         case CHANGEORDER:
             return { ...state, orderBy: action.payload };
         case REFRESHLIST:
+            console.log("====", state.ListFiltered == []);
+            console.log("====", [
+                ...state.VideoGameList.sort(
+                    orderFunction[state.orderBy]
+                ).filter((a) => filterFunction(state.filters.genre)(a)),
+            ]);
+            console.log("===2", [
+                ...state.ListFiltered.sort(orderFunction[state.orderBy]).filter(
+                    (a) => filterFunction(state.filters.genre)(a)
+                ),
+            ]);
+
+            var newData =
+                state.search == ""
+                    ? [
+                          ...state.VideoGameList.sort(
+                              orderFunction[state.orderBy]
+                          ).filter((a) =>
+                              filterFunction(state.filters.genre)(a)
+                          ),
+                      ]
+                    : [
+                          ...state.ListFiltered.sort(
+                              orderFunction[state.orderBy]
+                          ).filter((a) =>
+                              filterFunction(state.filters.genre)(a)
+                          ),
+                      ];
+            console.log(newData);
             return {
                 ...state,
                 VideoGameList: state.VideoGameList.sort(
                     orderFunction[state.orderBy]
                 ),
-                ListFiltered: state.ListFiltered.sort(
-                    orderFunction[state.orderBy]
-                ),
+                ListFiltered: [...newData],
                 currentPage: 0,
             };
         case CHANGEFILTERGENRE:

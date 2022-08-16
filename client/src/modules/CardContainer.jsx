@@ -11,13 +11,22 @@ const PAGESIZE = 15;
 
 function CardContainer(props) {
     const dispatch = useDispatch();
-    const { VideoGameList, currentPage, search, ListFiltered, orderBy } =
-        useSelector((state) => state);
-
+    const {
+        VideoGameList,
+        currentPage,
+        search,
+        ListFiltered,
+        orderBy,
+        filters,
+    } = useSelector((state) => state);
+    const { origin, genre } = filters;
     useEffect(() => {
         if (VideoGameList.length === 0) {
             console.log(`${VideoGameList.length}llamado a la api`);
-            updateVideoGameList().then((r) => dispatch(r));
+            updateVideoGameList().then((r) => {
+                console.log(r, `llamado a la api_`);
+                return dispatch(r);
+            });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -34,7 +43,7 @@ function CardContainer(props) {
     useEffect(() => {
         dispatch(refresList());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [orderBy]);
+    }, [orderBy, genre]);
     return (
         <div className="VideoGameCardContainer">
             <a href="/newgame">newgame</a>
@@ -46,11 +55,16 @@ function CardContainer(props) {
                         <VideoGameCard props={game} />
                     ))}
             </div>
-            {ListFiltered.length !== 0 ? (
+            {/* {ListFiltered.length !== 0 ? ( */}
+            {search !== "" || ListFiltered.length <= PAGESIZE ? (
                 ""
             ) : (
                 <PageViewer
-                    PAGESIZE={Math.floor(VideoGameList.length / PAGESIZE)}
+                    PAGESIZE={Math.ceil(
+                        ListFiltered.length === 0
+                            ? VideoGameList.length / PAGESIZE
+                            : ListFiltered.length / PAGESIZE
+                    )}
                 />
             )}
         </div>

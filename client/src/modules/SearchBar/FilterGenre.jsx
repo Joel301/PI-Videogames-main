@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeFilterGenre } from "../../redux/actions";
 
 function FilterGenre(props) {
     const URLAPI = "http://localhost:3001";
     const dispatch = useDispatch();
+    const { filters } = useSelector((state) => state);
     const [genreList, setGenreList] = useState([
         { ID: "N/A", Nombre: "No filter" },
     ]);
@@ -19,6 +20,7 @@ function FilterGenre(props) {
     const onOptionChange = (e) => {
         // console.log(e.target.value, genreList);
         const value = e.target.value;
+        console.log(value, value == "N/A");
         if (value == "N/A") {
             dispatch(changeFilterGenre(""));
         } else {
@@ -31,6 +33,7 @@ function FilterGenre(props) {
             <select
                 name=""
                 id=""
+                value={filters.genre}
                 onChange={(e) => {
                     onOptionChange(e);
                 }}

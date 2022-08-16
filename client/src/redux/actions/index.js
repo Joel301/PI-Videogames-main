@@ -47,5 +47,8 @@ export function refresList() {
 }
 
 export function changeFilterGenre(payload) {
-    return { type: CHANGEFILTERGENRE, payload: Number(payload) };
+    return {
+        type: CHANGEFILTERGENRE,
+        payload: payload == "" ? "" : Number(payload),
+    };
 }
