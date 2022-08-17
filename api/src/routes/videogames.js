@@ -29,19 +29,25 @@ const getVideogameDataList = async (args) => {
     const res = [];
     console.log(name);
     const videogamesInDB = await Videogame.findAll(
-        name ? { where: { name: { [Op.like]: name } } } : { include: Genre }
+        name
+            ? {
+                  where: {
+                      name: { [Op.like]: `%${name}%` },
+                  },
+                  include: Genre,
+              }
+            : { include: Genre }
     );
-    videogamesInDB.map((g) => {
+    console.log(videogamesInDB.length, res);
+    await videogamesInDB.map((g) => {
+        // console.log(g);
         res.push(g.dataValues);
     });
-    console.log(
-        videogamesInDB.map((g) => {
-            res.push(g.dataValues);
-            return g.dataValues;
-        })
-    );
+    console.log(res);
+    // console.log(videogamesInDB);
 
     while (res.length < limit) {
+        console.log(res);
         if (!data.results || data.results.length == 0) break;
         while (res.length < limit && data.results.length > 0) {
             const game = data.results.shift();

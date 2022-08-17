@@ -61,7 +61,6 @@ function FormVideogame(props) {
         genresList().then((r) => {
             setGenres(r);
         });
-        console.log(genres);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const submit = (e) => {
@@ -82,6 +81,7 @@ function FormVideogame(props) {
                         setError(e.msg);
                     });
                 } else {
+                    setGame({ name: "" });
                     setError("");
                 }
             })
@@ -90,33 +90,42 @@ function FormVideogame(props) {
             });
         console.log(game);
     };
-    // useEffect(() => {}, [GENRES]);
+    useEffect(() => {}, [game]);
     return (
         <form onSubmit={(e) => submit(e)} className="frmVideoGames">
+            {console.log(game)}
             <NavLink to="/home">Back</NavLink>
             <h2>AGREGA UN VIDEOJUEGO</h2>
             <label className="campo">
                 Name:
-                <input type="text" onChange={(e) => handleOnchangeName(e)} />
+                <input
+                    type="text"
+                    value={game.name}
+                    onChange={(e) => handleOnchangeName(e)}
+                />
             </label>
             <label className="campo">
                 Description:
-                <input type="text" onChange={(e) => handleOnchangeDesc(e)} />
+                <input
+                    type="text"
+                    value={game.description || ""}
+                    onChange={(e) => handleOnchangeDesc(e)}
+                />
             </label>
             <label className="campo">
                 Launch date:
                 <input
                     type="date"
-                    value={game.releaseDate ? game.releaseDate : ""}
+                    value={game.releaseDate || ""}
                     onChange={(e) => handleOnchangeDate(e)}
                 />
             </label>
             <label className="campo">
                 Rating:
-                {`⭐ ${game.rating ? game.rating : 0}`}
+                {`⭐ ${game.rating || 0}`}
                 <input
                     type="range"
-                    value={game.rating ? game.rating : 0}
+                    value={game.rating || 0}
                     max={5}
                     min={0}
                     step={0.1}
@@ -126,6 +135,7 @@ function FormVideogame(props) {
             <label className="campo">
                 Plataforms:
                 <input
+                    value={game.plataforms || ""}
                     type="text"
                     name=""
                     id=""

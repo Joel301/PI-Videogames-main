@@ -55,8 +55,13 @@ function CardContainer(props) {
                         <VideoGameCard props={game} />
                     ))}
             </div>
-            {/* {ListFiltered.length !== 0 ? ( */}
-            {search !== "" || ListFiltered.length <= PAGESIZE ? (
+            {console.log(search !== "" || ListFiltered.length <= PAGESIZE)}
+            {console.log(
+                ListFiltered.length <= PAGESIZE && ListFiltered.length != 0
+            )}
+            {console.log(search !== "")}
+            {search !== "" ||
+            (ListFiltered.length <= PAGESIZE && ListFiltered.length != 0) ? (
                 ""
             ) : (
                 <PageViewer
